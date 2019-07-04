@@ -30,7 +30,7 @@ for lon in longitudes(gdis)
    end
 end
 
-heatmap(gdis.grid)
+heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:viridis)
 savefig(joinpath(@__DIR__, "..", "figures", "figure_04_a.png"))
 
 end
