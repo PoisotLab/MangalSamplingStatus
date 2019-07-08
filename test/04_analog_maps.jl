@@ -55,7 +55,7 @@ for i in eachindex(gdis.grid)
 	end
 end
 
-heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:Blues)
+heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:viridis, clim=(0.0,4000.0))
 savefig(joinpath(@__DIR__, "..", "figures", "figure_04_a.png"))
 
 end
