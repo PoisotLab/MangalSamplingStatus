@@ -2,8 +2,25 @@ module MangalSuppMat
 
 using Statistics
 using SimpleSDMLayers
+using Mangal
 
 greet() = print("Hello World!")
+
+import Base: getindex
+function getindex(s::SimpleSDMLayer, n::MangalNetwork)
+   lat, lon = latitude(n), longitude(n)
+   if ismissing(lat)
+      return missing
+   end
+   if ismissing(lon)
+      return missing
+   end
+   bcval = s[lon, lat]
+   if isnan(bcval)
+      return missing
+   end
+   return bcval
+end
 
 function haversine(p1, p2, r)
 	return acos(sin(p1[2])*sin(p2[2])+cos(p1[2])*cos(p2[2])*cos(p2[1]-p1[1]))*r
