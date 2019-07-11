@@ -4,7 +4,7 @@ using DataFrames
 using CSV
 using Plots
 
-mangal = CSV.read("networkinfo.dat")
+mangal = CSV.read("network_data.dat")
 
 # Remove everything that has a missing date
 whittaker = dropmissing(mangal, [:bc1, :bc12]; disallowmissing = true)
@@ -23,6 +23,6 @@ scatter!(mutu.bc12./10.0, mutu.bc1, lab="Mutualism (n=$n_mutu)", c=:grey)
 scatter!(pred.bc12./10.0, pred.bc1, lab="Predation (n=$n_pred)", c=:white)
 xaxis!("Annual precipitation", [0.0, 400.0])
 yaxis!("Average temperature", :flip, [-20.0,30.0])
-savefig(joinpath(@__DIR__, "..", "figures", "figure_02.pdf"))
+savefig(joinpath(@__DIR__, "..", "figures", "figure_02.png"))
 
 end

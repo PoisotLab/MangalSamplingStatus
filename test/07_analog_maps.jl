@@ -9,7 +9,7 @@ using SimpleSDMLayers
 using Statistics
 using ProgressMeter
 
-mangal = CSV.read("networkinfo.dat")
+mangal = CSV.read("network_data.dat")
 
 # Remove everything that has a missing latitude, longitude, or bc1
 bcdata = dropmissing(mangal, [:latitude, :longitude, :bc1]; disallowmissing = true)
@@ -18,7 +18,7 @@ bcdata.ϕ = bcdata.latitude.*(π/180.0)
 bcdata.λ = bcdata.longitude.*(π/180.0)
 
 # Get a template layer and fill it with the haversine distance
-bc = worldclim(1:19)
+bc = worldclim(1:19; resolution="5")
 zbc = [z(b) for b in bc]
 bc1 = bc[1]
 
@@ -50,16 +50,16 @@ all_cells = [(b.λ, b.ϕ) for b in eachrow(bcdata)]
 end
 
 # Add a CAP at 4000 km
-for i in eachindex(gdis.grid)
-	if gdis.grid[i] > 4000
-		gdis.grid[i] = 4000
-	end
-end
+# for i in eachindex(gdis.grid)
+	# if gdis.grid[i] > 4000
+		# gdis.grid[i] = 4000
+	# end
+# end
 
 heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:viridis)
-savefig(joinpath(@__DIR__, "..", "figures", "figure_04_a.png"))
+savefig(joinpath(@__DIR__, "..", "figures", "figure_03_a.png"))
 
 heatmap(longitudes(bdis), latitudes(bdis), log10.(bdis.grid.+1.0), c=:YlGnBu)
-savefig(joinpath(@__DIR__, "..", "figures", "figure_04_b.png"))
+savefig(joinpath(@__DIR__, "..", "figures", "figure_03_b.png"))
 
 end
