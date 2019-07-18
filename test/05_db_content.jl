@@ -29,7 +29,7 @@ yaxis!(:log, "Number of links")
 savefig(joinpath(@__DIR__, "..", "figures", "figure_01_b.png"))
 
 world = worldshape(50)
-networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomright)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft)
 xaxis!(networkplot, (-180,180), "Longitude")
 yaxis!(networkplot, (-90,90), "Latitude")
 
