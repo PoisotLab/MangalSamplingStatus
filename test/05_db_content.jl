@@ -1,8 +1,10 @@
-module MangalSuppMatGetData
+module MangalSuppMatGetDatabaseContent
 
+using MangalSuppMat
 using DataFrames
 using CSV
 using Plots
+using Shapefile
 
 mangal = CSV.read("network_data.dat")
 
@@ -25,5 +27,28 @@ scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black)
 xaxis!(:log, "Number of nodes")
 yaxis!(:log, "Number of links")
 savefig(joinpath(@__DIR__, "..", "figures", "figure_01_b.png"))
+
+world = worldshape(50)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0)
+xaxis!(networkplot, (-180,180), "Longitude")
+yaxis!(networkplot, (-90,90), "Latitude")
+
+for p in world.shapes
+    sh = Shape([pp.x for pp in p.points], [pp.y for pp in p.points])
+    plot!(networkplot, sh, c=:lightgrey, lc=:lightgrey, lab="")
+end
+
+okdata = dropmissing(mangal, [:latitude, :longitude]; disallowmissing = true)
+
+para = okdata[okdata.parasitism.>0,:]
+mutu = okdata[okdata.mutualism.>0,:]
+pred = okdata[okdata.predation.>0,:]
+
+scatter!(networkplot, para[:longitude], para[:latitude], c="#e69f00", lab="Parasitism")
+scatter!(networkplot, mutu[:longitude], mutu[:latitude], c="#56b4e9", lab="Mutualism")
+scatter!(networkplot, pred[:longitude], pred[:latitude], c="#009e73", lab="Predation")
+
+savefig(joinpath(@__DIR__, "..", "figures", "figure_01_c.png"))
+
 
 end

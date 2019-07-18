@@ -3,6 +3,7 @@ module MangalSuppMat
 using Statistics
 using SimpleSDMLayers
 using Mangal
+using Shapefile
 
 greet() = print("Hello World!")
 
@@ -64,5 +65,24 @@ function z(v, p::T) where {T <: SimpleSDMLayer}
 end
 
 export z, z!
+
+function donwload_shapefile(res)
+   @assert res ∈ [50, 100]
+   dir = "https://github.com/nvkelso/natural-earth-vector/" *
+   "raw/master/$(res)m_physical/"
+
+   fn = "ne_$(res)m_land.shp"
+   run(`wget $dir/$fn -P ./assets/`)
+end
+
+function worldshape(res)
+   pat = joinpath(@__DIR__, "..", "test", "assets", "ne_$(res)m_land.shp")
+   handle = open(pat, "r") do io
+      read(io, Shapefile.Handle)
+   end
+   return handle
+end
+export worldshape
+
 
 end # module

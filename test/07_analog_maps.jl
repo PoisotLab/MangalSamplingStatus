@@ -18,7 +18,7 @@ bcdata.ϕ = bcdata.latitude.*(π/180.0)
 bcdata.λ = bcdata.longitude.*(π/180.0)
 
 # Get a template layer and fill it with the haversine distance
-bc = worldclim(1:19; resolution="5")
+bc = worldclim(1:19; resolution="10")
 zbc = [z(b) for b in bc]
 bc1 = bc[1]
 
@@ -56,7 +56,7 @@ end
 	# end
 # end
 
-heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:viridis)
+heatmap(longitudes(gdis), latitudes(gdis), gdis.grid, c=:PuBu)
 savefig(joinpath(@__DIR__, "..", "figures", "figure_03_a.png"))
 
 heatmap(longitudes(bdis), latitudes(bdis), log10.(bdis.grid.+1.0), c=:YlGnBu)
