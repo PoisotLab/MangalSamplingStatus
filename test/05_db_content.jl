@@ -16,7 +16,19 @@ sort!(with_date, [:date])
 with_date.tick = collect(1:size(with_date, 1))
 
 # And plot 
-plot(with_date.date, with_date.tick, leg=false, c=:black)
+plot(with_date.date, with_date.tick, lab="All networks", c=:black, legeng=:topleft)
+
+para = with_date[with_date.parasitism.>0,:]
+para.tick = collect(1:size(para, 1))
+mutu = with_date[with_date.mutualism.>0,:]
+mutu.tick = collect(1:size(mutu, 1))
+pred = with_date[with_date.predation.>0,:]
+pred.tick = collect(1:size(pred, 1))
+
+plot!(para.date, para.tick, c="#e69f00", lab="Parasitism")
+plot!(mutu.date, mutu.tick, c="#56b4e9", lab="Mutualism")
+plot!(pred.date, pred.tick, c="#009e73", lab="Predation")
+
 xaxis!("Date of collection")
 yaxis!("Number of networks")
 savefig(joinpath(@__DIR__, "..", "figures", "figure_01_a.png"))
