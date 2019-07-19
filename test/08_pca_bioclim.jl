@@ -36,9 +36,9 @@ savefig(joinpath(@__DIR__, "..", "figures", "figure_05_a.png"))
 
 m = maximum(bcdata.D)
 
-density(para.D./m, c="#e69f00")
-density!(mutu.D./m, c="#56b4e9")
-density!(pred.D./m, c="#009e73")
+density(para.D./m, c="#e69f00", lab="Parasitism")
+density!(mutu.D./m, c="#56b4e9", lab="Mutualism")
+density!(pred.D./m, c="#009e73", lab="Predation")
 xaxis!("Ranged distance to centroid")
 savefig(joinpath(@__DIR__, "..", "figures", "figure_05_b.png"))
 

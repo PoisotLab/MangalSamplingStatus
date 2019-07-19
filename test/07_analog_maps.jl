@@ -62,4 +62,7 @@ savefig(joinpath(@__DIR__, "..", "figures", "figure_03_a.png"))
 heatmap(longitudes(bdis), latitudes(bdis), log10.(bdis.grid.+1.0), c=:YlGnBu)
 savefig(joinpath(@__DIR__, "..", "figures", "figure_03_b.png"))
 
+heatmap(longitudes(bdis), latitudes(bdis), bdis.grid, c=:YlGnBu)
+savefig(joinpath(@__DIR__, "..", "figures", "figure_04_b.png"))
+
 end
