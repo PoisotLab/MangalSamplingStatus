@@ -16,7 +16,7 @@ sort!(with_date, [:date])
 with_date.tick = collect(1:size(with_date, 1))
 
 # And plot 
-plot(with_date.date, with_date.tick, lab="All networks", c=:black, legeng=:topleft)
+plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft)
 
 para = with_date[with_date.parasitism.>0,:]
 para.tick = collect(1:size(para, 1))
