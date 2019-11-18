@@ -28,3 +28,5 @@ jobs:
         run: julia --project -e 'ispath("figures") || mkdir("figures")'
       - name: "Get network metadata"
         run: julia --project scripts/01_get_metadata.jl
+      - name: "Get interactions list"
+        run: julia --project scripts/02_get_interactions.jl

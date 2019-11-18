@@ -17,7 +17,16 @@ end
 network_metadata = DataFrame()
 network_metadata.id = [n.id for n in all_networks]
 network_metadata.name = [n.name for n in all_networks]
-network_metadata.date = [n.date for n in all_networks]
+
+function get_date(n::MangalNetwork)
+   if ismissing(n.date)
+      return missing
+   else
+      return n.date
+   end
+end
+
+network_metadata.date = get_date.(all_networks)
 
 function get_coordinates(n::MangalNetwork; dims::Int64=1)
    if ismissing(n.position)
