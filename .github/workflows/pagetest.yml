@@ -9,12 +9,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Build and deploy
-        uses: JamesIves/github-pages-deploy-action@master
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v1.6.1
         env:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
-          BUIDL_SCRIPT: npm instal && npm-run-script build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_MESSAGE: "update"
+          PULL_REQUEST_TITLE: '[AUTO] Update */Manifest.toml'
+          PULL_REQUEST_LABELS: no changelog
+          PULL_REQUEST_BRANCH: create-pull-request/pkg-update
+          BRANCH_SUFFIX: none
+      - name: Check output environment variable
+        run: echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
