@@ -19,7 +19,7 @@ jobs:
         with:
           version: ${{ matrix.julia-version }}
       - name: "Install packages"
-        run: julia --project -e "import Pkg; Pkg.instantiate()"
+        run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
       - name: "Install SimpleSDMLayers"
         run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
       - name: "Prepare data folder"
