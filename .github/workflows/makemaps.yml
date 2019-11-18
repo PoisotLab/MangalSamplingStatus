@@ -1,0 +1,26 @@
+name: "Make the maps"
+
+on:
+  push:
+    paths:
+      - '**.jl'
+  schedule:
+    - cron: '* */2 * * * *'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        julia-version: [1.2.0]
+        julia-arch: [x86]
+        os: [ubuntu-latest]
+    steps:
+      - uses: action/checkout@v1.0.0
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: ${{ matrix.julia-version }}
+      - name: "Install packages"
+        run: julia --project -e "import Pkg; Pkg.instantiate()"
+      - name: "Install SimpleSDMLayers"
+        run: julia --project -e 'import Pkg; Pkg.add("https://github.com/EcoJulia/SimpleSDMLayers.jl#master")'
