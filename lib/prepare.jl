@@ -1,5 +1,3 @@
-module MangalSuppMat
-
 using Statistics
 using SimpleSDMLayers
 using Mangal
@@ -83,6 +81,3 @@ function worldshape(res)
    return handle
 end
 export worldshape
-
-
-end # module

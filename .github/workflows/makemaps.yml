@@ -22,3 +22,6 @@ jobs:
         run: julia --project -e "import Pkg; Pkg.instantiate()"
       - name: "Install SimpleSDMLayers"
         run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
+      - name: "Prepare folders"
+        run: julia --project -e 'ispath("data") && mkdir("data")'
+        run: julia --project -e 'ispath("figures") && mkdir("figures")'
