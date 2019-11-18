@@ -1,14 +1,10 @@
-module MangalSuppMatAnalogMaps
-
-using MangalSuppMat
-
 using DataFrames
 using CSV
 using StatsPlots
 using Statistics
 using MultivariateStats
 
-mangal = CSV.read("network_data.dat")
+mangal = CSV.read(joinpath("data", "network_data.dat"))
 
 bcdata = dropmissing(mangal, [:bc1]; disallowmissing = true)
 bcdata = bcdata[.!isnan.(bcdata.bc1), :]
@@ -32,7 +28,7 @@ density(para.pc1)
 density!(mutu.pc1)
 density!(pred.pc1)
 xaxis!("Position on PC1")
-savefig(joinpath(@__DIR__, "..", "figures", "figure_05_a.png"))
+savefig(joinpath("figures", "position_on_pc1.png"))
 
 m = maximum(bcdata.D)
 
@@ -40,6 +36,4 @@ density(para.D./m, c="#e69f00", lab="Parasitism")
 density!(mutu.D./m, c="#56b4e9", lab="Mutualism")
 density!(pred.D./m, c="#009e73", lab="Predation")
 xaxis!("Ranged distance to centroid")
-savefig(joinpath(@__DIR__, "..", "figures", "figure_05_b.png"))
-
-end
+savefig(joinpath("figures", "distance_to_centroid.png"))

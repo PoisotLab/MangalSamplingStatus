@@ -40,3 +40,5 @@ jobs:
         run: julia --project scripts/06_whittaker.jl
       - name: "Make figures on spatial/bioclimatic distance"
         run: julia --project scripts/07_analog_maps.jl
+      - name: "Make figures on PCA based on bioclim data"
+        run: julia --project scripts/08_pca_bioclim.jl
