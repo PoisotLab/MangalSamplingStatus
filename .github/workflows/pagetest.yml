@@ -9,6 +9,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: "ls"
+        run: ls -lah
       - name: "Move"
         run: cd dist
       - name: "ls"
