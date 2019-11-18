@@ -21,4 +21,4 @@ jobs:
           git add .
           git commit -m 'autopush'
           git remote add origin git@github.com:$GITHUB_REPOSITORY.git
-          git push -f origin gh-pages
+          git push -f origin master:gh-pages
