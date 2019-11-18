@@ -34,3 +34,5 @@ jobs:
         run: julia --project scripts/03_get_bioclim.jl
       - name: "Merge dataframes"
         run: julia --project scripts/04_merge_data.jl
+      - name: "Make figure on database contents over time"
+        run: julia --project scripts/05_db_content.jl

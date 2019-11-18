@@ -1,12 +1,9 @@
-module MangalSuppMatGetDatabaseContent
-
-using MangalSuppMat
 using DataFrames
 using CSV
 using Plots
 using Shapefile
 
-mangal = CSV.read("network_data.dat")
+mangal = CSV.read(joinpath("data", "network_data.dat"))
 
 # Remove everything that has a missing date
 with_date = dropmissing(mangal, :date; disallowmissing = true)
@@ -31,14 +28,14 @@ plot!(pred.date, pred.tick, c="#009e73", lab="Predation")
 
 xaxis!("Date of collection")
 yaxis!("Number of networks")
-savefig(joinpath(@__DIR__, "..", "figures", "figure_01_a.png"))
+savefig(joinpath("figures", "network_growth_over_time.png"))
 
 oknetworks = mangal[mangal.links .> 0, :]
 
 scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black)
 xaxis!(:log, "Number of nodes")
 yaxis!(:log, "Number of links")
-savefig(joinpath(@__DIR__, "..", "figures", "figure_01_b.png"))
+savefig(joinpath("figures", "links_species_relationship.png"))
 
 world = worldshape(50)
 networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft)
@@ -60,7 +57,4 @@ scatter!(networkplot, para[:longitude], para[:latitude], c="#e69f00", lab="Paras
 scatter!(networkplot, mutu[:longitude], mutu[:latitude], c="#56b4e9", lab="Mutualism")
 scatter!(networkplot, pred[:longitude], pred[:latitude], c="#009e73", lab="Predation")
 
-savefig(joinpath(@__DIR__, "..", "figures", "figure_01_c.png"))
-
-
-end
+savefig(joinpath("figures", "map_networks_type.png"))
