@@ -3,7 +3,7 @@ using CSV
 using Plots
 using Shapefile
 
-include(joinpath("..", "lib", "prepare.jl")
+include(joinpath("..", "lib", "prepare.jl"))
 
 mangal = CSV.read(joinpath("data", "network_data.dat"))
 
