@@ -38,3 +38,5 @@ jobs:
         run: julia --project scripts/05_db_content.jl
       - name: "Make figures on networks by biomes"
         run: julia --project scripts/06_whittaker.jl
+      - name: "Make figures on spatial/bioclimatic distance"
+        run: julia --project scripts/07_analog_maps.jl

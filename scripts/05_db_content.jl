@@ -3,6 +3,8 @@ using CSV
 using Plots
 using Shapefile
 
+include("lib/prepare.jl")
+
 mangal = CSV.read(joinpath("data", "network_data.dat"))
 
 # Remove everything that has a missing date

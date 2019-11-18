@@ -3,8 +3,6 @@ using DataFrames
 using CSV
 using GeoInterface
 
-println("01")
-
 const number_of_networks = count(MangalNetwork)
 page = 0
 all_networks = networks()

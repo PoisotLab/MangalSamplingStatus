@@ -1,15 +1,12 @@
-module MangalSuppMatAnalogMaps
-
-using MangalSuppMat
-
 using DataFrames
 using CSV
 using Plots
 using SimpleSDMLayers
 using Statistics
-using ProgressMeter
 
-mangal = CSV.read("network_data.dat")
+include("lib/prepare.jl")
+
+mangal = CSV.read(joinpath("data", "network_data.dat"))
 
 # Remove everything that has a missing latitude, longitude, or bc1
 bcdata = dropmissing(mangal, [:latitude, :longitude, :bc1]; disallowmissing = true)
@@ -63,9 +60,9 @@ for lon in longitudes(prgdis)
 end
 
 heatmap(longitudes(prgdis), latitudes(prgdis), prgdis.grid, c=:Greens)
-savefig(joinpath(@__DIR__, "..", "figures", "geodistance_predation.png"))
+savefig(joinpath("figures", "geodistance_predation.png"))
 heatmap(longitudes(prbdis), latitudes(prbdis), log.(prbdis.grid.+1.0), c=:Greens, clim=(0,4.5))
-savefig(joinpath(@__DIR__, "..", "figures", "envirodistance_predation.png"))
+savefig(joinpath("figures", "envirodistance_predation.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(padata)]
 for lon in longitudes(pagdis)
@@ -82,9 +79,9 @@ for lon in longitudes(pagdis)
 end
 
 heatmap(longitudes(pagdis), latitudes(pagdis), pagdis.grid, c=:Oranges)
-savefig(joinpath(@__DIR__, "..", "figures", "geodistance_parasitism.png"))
+savefig(joinpath("figures", "geodistance_parasitism.png"))
 heatmap(longitudes(pabdis), latitudes(pabdis), log.(pabdis.grid.+1.0), c=:Oranges, clim=(0,4.5))
-savefig(joinpath(@__DIR__, "..", "figures", "envirodistance_parasitism.png"))
+savefig(joinpath("figures", "envirodistance_parasitism.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(mudata)]
 for lon in longitudes(mugdis)
@@ -101,8 +98,6 @@ for lon in longitudes(mugdis)
 end
 
 heatmap(longitudes(mugdis), latitudes(mugdis), mugdis.grid, c=:Blues)
-savefig(joinpath(@__DIR__, "..", "figures", "geodistance_mutualism.png"))
+savefig(joinpath("figures", "geodistance_mutualism.png"))
 heatmap(longitudes(mubdis), latitudes(mubdis), log.(mubdis.grid.+1.0), c=:Blues, clim=(0,4.5))
-savefig(joinpath(@__DIR__, "..", "figures", "envirodistance_mutualism.png"))
-
-end
+savefig(joinpath("figures", "envirodistance_mutualism.png"))
