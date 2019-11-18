@@ -22,6 +22,9 @@ jobs:
         run: julia --project -e "import Pkg; Pkg.instantiate()"
       - name: "Install SimpleSDMLayers"
         run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
-      - name: "Prepare folders"
+      - name: "Prepare data folder"
         run: julia --project -e 'ispath("data") && mkdir("data")'
+      - name: "Prepare figure folder"
         run: julia --project -e 'ispath("figures") && mkdir("figures")'
+      - name: "Get network metadata"
+        run: julia --project scripts/01_get_metadata.jl
