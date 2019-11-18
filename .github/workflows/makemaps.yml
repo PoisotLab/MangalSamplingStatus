@@ -21,4 +21,4 @@ jobs:
       - name: "Install packages"
         run: julia --project -e "import Pkg; Pkg.instantiate()"
       - name: "Install SimpleSDMLayers"
-        run: julia --project -e 'import Pkg; Pkg.add(PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
+        run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
