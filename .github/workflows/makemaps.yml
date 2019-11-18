@@ -2,8 +2,6 @@ name: "Make the maps"
 
 on:
   push:
-    paths:
-      - '**.jl'
   schedule:
     - cron: '* */2 * * * *'
 
