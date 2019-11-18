@@ -9,12 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v1.7.4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "AUTO website update"
-          title: '[AUTO] Update figures and data'
-          base: gh-pages
-      - name: Check output environment variable
-        run: echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+      - name: "Move"
+        run: cd dist
+      - name: "ls"
+        run: ls -lah
