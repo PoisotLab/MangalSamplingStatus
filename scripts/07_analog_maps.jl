@@ -4,7 +4,7 @@ using Plots
 using SimpleSDMLayers
 using Statistics
 
-include("lib/prepare.jl")
+include(joinpath("..", "lib", "prepare.jl")
 
 mangal = CSV.read(joinpath("data", "network_data.dat"))
 
