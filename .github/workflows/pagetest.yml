@@ -9,6 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1.0.0
       - name: "ls"
         run: ls -lah
       - name: "Move"
