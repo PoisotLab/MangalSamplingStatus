@@ -10,9 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1.0.0
-      - name: "ls"
-        run: ls -lah
-      - name: "Move"
-        run: cd dist
-      - name: "ls"
-        run: ls -lah
+      - name: "Website, baby!"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd dist
+          git init .
+          git add .
+          git commit -m 'autopush'
+          git remote add origin git@github.com:${{ GITHUB_REPOSITORY }}.git
+          git push -f origin gh-pages
