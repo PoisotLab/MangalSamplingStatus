@@ -22,12 +22,6 @@ jobs:
           version: ${{ matrix.julia-version }}
       - name: "Pre-run test"
         run: touch dist/test
-      - name: "Github pages updates"
-        uses: JamesIves/github-pages-deploy-action@releases/v2
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
       - name: "Install packages"
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
       - name: "Install SimpleSDMLayers"
@@ -58,3 +52,9 @@ jobs:
         run: |
           cp figures/* dist/figures
           cp data/* dist/data
+      - name: "Github pages updates"
+        uses: JamesIves/github-pages-deploy-action@releases/v2
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
