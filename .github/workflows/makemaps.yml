@@ -1,9 +1,9 @@
 name: "Make the maps"
 
 on:
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
   schedule:
     - cron: '0 0 * * *'
 
@@ -24,10 +24,18 @@ jobs:
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
       - name: "Install SimpleSDMLayers"
         run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
-      - name: "Prepare data folder"
-        run: julia --project -e 'ispath("data") || mkdir("data")'
-      - name: "Prepare figure folder"
-        run: julia --project -e 'ispath("figures") || mkdir("figures")'
+      - name: "Prepare folders"
+        run: |
+          mkdir -p data
+          mkdir -p figures
+          mkdir -p dist/data
+          mkdir -p dist/figures
+      - name: "Github pages updates"
+        uses: JamesIves/github-pages-deploy-action@releases/v2
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
       - name: "Get network metadata"
         run: julia --project scripts/01_get_metadata.jl
       - name: "Get interactions list"

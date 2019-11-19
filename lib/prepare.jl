@@ -1,6 +1,5 @@
-
 import Base: getindex
-function getindex(s::SimpleSDMLayer, n::MangalNetwork)
+function getindex(s::T, n::MangalNetwork) where {T <: SimpleSDMLayer}
    lat, lon = latitude(n), longitude(n)
    if ismissing(lat)
       return missing
