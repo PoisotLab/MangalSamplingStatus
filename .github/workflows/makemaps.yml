@@ -57,9 +57,8 @@ jobs:
         run: |
           cp figures/* dist/figures
           cp data/* dist/data
-      - name: "Github pages updates"
-        uses: JamesIves/github-pages-deploy-action@releases/v2
+      - name: "GitHub Pages deployment"
+        uses: maxheld83/ghpages@v0.2.1
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+          BUILD_DIR: "dist/"
+          GH_PAT: ${{ secrets.ACCESS_TOKEN }}
