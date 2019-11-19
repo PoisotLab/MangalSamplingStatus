@@ -24,6 +24,9 @@ jobs:
         run: touch dist/test
       - name: "GitHub Pages Deploy test"
         uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: "dist/"
+          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: "Install packages"
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
       - name: "Install SimpleSDMLayers"
