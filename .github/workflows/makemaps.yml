@@ -22,6 +22,8 @@ jobs:
           version: ${{ matrix.julia-version }}
       - name: "Pre-run test"
         run: touch dist/test
+      - name: "GitHub Pages Deploy test"
+        uses: maxheld83/ghpages@v0.2.1
       - name: "Install packages"
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
       - name: "Install SimpleSDMLayers"
