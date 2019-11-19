@@ -1,4 +1,5 @@
-test/assets/*
+assets/
+assets/*
 Manifest.toml
 data/
 figures/
