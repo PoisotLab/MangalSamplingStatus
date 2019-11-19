@@ -2,6 +2,7 @@ using DataFrames
 using CSV
 using Plots
 using Shapefile
+using SimpleSDMLayers
 
 include(joinpath("..", "lib", "prepare.jl"))
 
