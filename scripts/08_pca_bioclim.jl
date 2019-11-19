@@ -18,15 +18,23 @@ M = fit(PCA, bc_webs')
 P = transform(M, bc_webs')
 
 bcdata.pc1 = (P[1,:].-mean(P[1,:]))./std(P[1,:])
+bcdata.pc2 = (P[2,:].-mean(P[2,:]))./std(P[2,:])
 bcdata.D = vec(sum(sqrt.(P.^2.0); dims=1))
 
 para = bcdata[bcdata.parasitism.>0,:]
 mutu = bcdata[bcdata.mutualism.>0,:]
 pred = bcdata[bcdata.predation.>0,:]
 
-density(para.pc1)
-density!(mutu.pc1)
-density!(pred.pc1)
+scatter(para.pc1, para.pc2, frame=:origin, c="#e69f00", lab="Parasitism", legend=:bottomleft)
+scatter!(mutu.pc1, mutu.pc2, c="#56b4e9", lab="Mutualism")
+scatter!(pred.pc1, pred.pc2, c="#009e73", lab="Predation")
+xaxis!("Position on PC1")
+yaxis!("Position on PC2")
+savefig(joinpath("figures", "networks_pca.png"))
+
+density(para.pc1, c="#e69f00", lab="Parasitism")
+density!(mutu.pc1, c="#56b4e9", lab="Mutualism")
+density!(pred.pc1, c="#009e73", lab="Predation")
 xaxis!("Position on PC1")
 savefig(joinpath("figures", "position_on_pc1.png"))
 
@@ -35,5 +43,5 @@ m = maximum(bcdata.D)
 density(para.D./m, c="#e69f00", lab="Parasitism")
 density!(mutu.D./m, c="#56b4e9", lab="Mutualism")
 density!(pred.D./m, c="#009e73", lab="Predation")
-xaxis!("Ranged distance to centroid")
+xaxis!((0,1), "Ranged distance to centroid")
 savefig(joinpath("figures", "distance_to_centroid.png"))

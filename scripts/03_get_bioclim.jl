@@ -16,7 +16,7 @@ for layer_number in 1:length(wc_data)
          tmp[rownumber] = wc_data[layer_number][row.longitude, row.latitude]
       end
    end
-   network_bioclim[Symbol("bc"*string(layer_number))] = tmp
+   network_bioclim[!, Symbol("bc"*string(layer_number))] = tmp
 end
 
 CSV.write(joinpath("data", "network_bioclim.dat"), network_bioclim)

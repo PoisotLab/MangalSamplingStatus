@@ -1,7 +1,6 @@
 using DataFrames
 using CSV
 
-
 network_metadata = CSV.read(joinpath("data", "network_metadata.dat"))
 network_interactions = CSV.read(joinpath("data", "network_interactions.dat"))
 network_bioclim = CSV.read(joinpath("data", "network_bioclim.dat"))

@@ -4,7 +4,8 @@ using Plots
 using SimpleSDMLayers
 using Statistics
 
-include(joinpath("..", "lib", "prepare.jl"))
+include(joinpath("..", "lib", "haversine.jl"))
+include(joinpath("..", "lib", "zscores.jl"))
 
 mangal = CSV.read(joinpath("data", "network_data.dat"))
 
@@ -32,11 +33,11 @@ mugdis = similar(bc1)
 mubdis = similar(bc1)
 
 for i in 1:19
-   nc = Symbol("zbc"*string(i))
-   oc = Symbol("bc"*string(i))
-   prdata[nc] = [z(v, bc[i]) for v in prdata[oc]]
-   padata[nc] = [z(v, bc[i]) for v in padata[oc]]
-   mudata[nc] = [z(v, bc[i]) for v in mudata[oc]]
+	nc = Symbol("zbc"*string(i))
+	oc = Symbol("bc"*string(i))
+	prdata[nc] = [z(v, bc[i]) for v in prdata[oc]]
+	padata[nc] = [z(v, bc[i]) for v in padata[oc]]
+	mudata[nc] = [z(v, bc[i]) for v in mudata[oc]]
 end
 
 bc_colnames = Symbol.("zbc".*string.(1:19))
@@ -50,18 +51,20 @@ for lon in longitudes(prgdis)
 	for lat in latitudes(prgdis)
 		cell = (lon*π/180.0, lat*π/180.0)
 		if !isnan(prgdis[lon,lat])
-         cell_bc_values = [zb[lon,lat] for zb in zbc]
-         cell_bc_distance = vec(sum(sqrt.((pr_bc_webs.-cell_bc_values').^2.0); dims=2))
+			cell_bc_values = [zb[lon,lat] for zb in zbc]
+			cell_bc_distance = vec(sum(sqrt.((pr_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
 			prgdis[lon,lat] = mean(sort(all_dist)[1:5])
-         prbdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			prbdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
 		end
 	end
 end
 
-heatmap(longitudes(prgdis), latitudes(prgdis), prgdis.grid, c=:Greens)
+qt(x) = ecdf(filter(!isnan, x))
+
+heatmap(prgdis, c=:Greens, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))
-heatmap(longitudes(prbdis), latitudes(prbdis), log.(prbdis.grid.+1.0), c=:Greens, clim=(0,4.5))
+heatmap(prbdis, c=:Greens, frame=:box)
 savefig(joinpath("figures", "envirodistance_predation.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(padata)]
@@ -69,11 +72,11 @@ for lon in longitudes(pagdis)
 	for lat in latitudes(pagdis)
 		cell = (lon*π/180.0, lat*π/180.0)
 		if !isnan(pagdis[lon,lat])
-         cell_bc_values = [zb[lon,lat] for zb in zbc]
-         cell_bc_distance = vec(sum(sqrt.((pa_bc_webs.-cell_bc_values').^2.0); dims=2))
+			cell_bc_values = [zb[lon,lat] for zb in zbc]
+			cell_bc_distance = vec(sum(sqrt.((pa_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
 			pagdis[lon,lat] = mean(sort(all_dist)[1:5])
-         pabdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			pabdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
 		end
 	end
 end
@@ -88,11 +91,11 @@ for lon in longitudes(mugdis)
 	for lat in latitudes(mugdis)
 		cell = (lon*π/180.0, lat*π/180.0)
 		if !isnan(mugdis[lon,lat])
-         cell_bc_values = [zb[lon,lat] for zb in zbc]
-         cell_bc_distance = vec(sum(sqrt.((mu_bc_webs.-cell_bc_values').^2.0); dims=2))
+			cell_bc_values = [zb[lon,lat] for zb in zbc]
+			cell_bc_distance = vec(sum(sqrt.((mu_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
 			mugdis[lon,lat] = mean(sort(all_dist)[1:5])
-         mubdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			mubdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
 		end
 	end
 end

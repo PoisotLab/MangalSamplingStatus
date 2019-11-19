@@ -4,7 +4,7 @@ using Plots
 using Shapefile
 using SimpleSDMLayers
 
-include(joinpath("..", "lib", "prepare.jl"))
+include(joinpath("..", "lib", "worldshape.jl"))
 
 mangal = CSV.read(joinpath("data", "network_data.dat"))
 
@@ -17,6 +17,7 @@ with_date.tick = collect(1:size(with_date, 1))
 
 # And plot
 plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft)
+savefig(joinpath("figures", "increase_over_time.png"))
 
 para = with_date[with_date.parasitism.>0,:]
 para.tick = collect(1:size(para, 1))
@@ -41,7 +42,7 @@ yaxis!(:log, "Number of links")
 savefig(joinpath("figures", "links_species_relationship.png"))
 
 world = worldshape(50)
-networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft, frame=:box, aspectratio=1)
 xaxis!(networkplot, (-180,180), "Longitude")
 yaxis!(networkplot, (-90,90), "Latitude")
 

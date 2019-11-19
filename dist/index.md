@@ -13,6 +13,8 @@ everything to this page.
 The repository only stores the scripts (in `scripts`) and a few helper functions
 (in `lib`), as well as the workflow. Everything else gets generated weekly. The
 `gh-pages` branch has a copy of the figures (in `figures`) and data (in `data`).
+All of the website material are in the `dist` folder, which is written in during
+the build step, although the results are not committed to the `master` branch.
 
 # Data files
 

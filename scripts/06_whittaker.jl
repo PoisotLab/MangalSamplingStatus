@@ -16,7 +16,7 @@ n_mutu = size(mutu)[1]
 n_pred = size(pred)[1]
 
 # And plot
-scatter(para.bc12./10.0, para.bc1, lab="Parasitism (n=$n_para)", c="#e69f00")
+scatter(para.bc12./10.0, para.bc1, lab="Parasitism (n=$n_para)", c="#e69f00", frame=:box)
 scatter!(mutu.bc12./10.0, mutu.bc1, lab="Mutualism (n=$n_mutu)", c="#56b4e9")
 scatter!(pred.bc12./10.0, pred.bc1, lab="Predation (n=$n_pred)", c="#009e73")
 xaxis!("Annual precipitation", [0.0, 400.0])
