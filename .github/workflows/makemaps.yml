@@ -30,12 +30,6 @@ jobs:
           mkdir -p figures
           mkdir -p dist/data
           mkdir -p dist/figures
-      - name: "Github pages updates"
-        uses: JamesIves/github-pages-deploy-action@releases/v2
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
       - name: "Get network metadata"
         run: julia --project scripts/01_get_metadata.jl
       - name: "Get interactions list"
@@ -52,3 +46,13 @@ jobs:
         run: julia --project scripts/07_analog_maps.jl
       - name: "Make figures on PCA based on bioclim data"
         run: julia --project scripts/08_pca_bioclim.jl
+      - name: "Copy assets"
+        run: |
+          cp figures/* dist/figures
+          cp data/* dist/data
+      - name: "Github pages updates"
+        uses: JamesIves/github-pages-deploy-action@releases/v2
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
