@@ -16,9 +16,8 @@ sort!(with_date, [:date])
 with_date.tick = collect(1:size(with_date, 1))
 
 # Network properties
-scatter(with_date.date, with_date.nodes, lab="Nodes", c=:black, legend=:topleft)
-scatter!(with_date.date, with_date.links, lab="Interactions", c=:grey)
-yaxis!(:log)
+scatter(with_date.date, with_date.nodes, lab="Richness", c=:black, legend=:topleft)
+#yaxis!(:log)
 savefig(joinpath("figures", "properties_over_time.png"))
 
 # And plot
