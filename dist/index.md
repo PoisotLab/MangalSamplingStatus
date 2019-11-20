@@ -2,7 +2,7 @@
 title: Database overview
 ---
 
-This website is automatically generated from the [`mangal.io`](mangal.io)
+This page is automatically generated from the [`mangal.io`](http://mangal.io)
 database. It gives an overview, updated weekly, of the completeness of sampling.
 The figures and data are generated through the use of github actions, and
 reflect the most up to date state of the analysis. The workflow file downloads
@@ -61,6 +61,10 @@ appear as different points in this map.
 This plots the number of links in relationship to the number of nodes.
 
 ![LS](figures/links_species_relationship.png)
+
+### Properties over time
+
+![pot](figures/properties_over_time.png)
 
 ### Networks across biomes
 

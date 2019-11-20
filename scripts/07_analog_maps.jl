@@ -54,8 +54,8 @@ for lon in longitudes(prgdis)
 			cell_bc_values = [zb[lon,lat] for zb in zbc]
 			cell_bc_distance = vec(sum(sqrt.((pr_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
-			prgdis[lon,lat] = log(mean(sort(all_dist)[1:5])+1)
-			prbdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			prgdis[lon,lat] = mean(sort(all_dist)[1:5])
+			prbdis[lon,lat] = log(mean(sort(cell_bc_distance)[1:5])+1.0)
 		end
 	end
 end
@@ -74,14 +74,14 @@ for lon in longitudes(pagdis)
 			cell_bc_distance = vec(sum(sqrt.((pa_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
 			pagdis[lon,lat] = mean(sort(all_dist)[1:5])
-			pabdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			pabdis[lon,lat] = log(mean(sort(cell_bc_distance)[1:5])+1.0)
 		end
 	end
 end
 
-heatmap(longitudes(pagdis), latitudes(pagdis), pagdis.grid, c=:Oranges)
+heatmap(pagdis, c=:Oranges)
 savefig(joinpath("figures", "geodistance_parasitism.png"))
-heatmap(longitudes(pabdis), latitudes(pabdis), log.(pabdis.grid.+1.0), c=:Oranges, clim=(0,4.5))
+heatmap(pabdis, c=:Oranges, clim=(0,4.5))
 savefig(joinpath("figures", "envirodistance_parasitism.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(mudata)]
@@ -93,12 +93,12 @@ for lon in longitudes(mugdis)
 			cell_bc_distance = vec(sum(sqrt.((mu_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
 			mugdis[lon,lat] = mean(sort(all_dist)[1:5])
-			mubdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
+			mubdis[lon,lat] = log(mean(sort(cell_bc_distance)[1:5])+1.0)
 		end
 	end
 end
 
-heatmap(longitudes(mugdis), latitudes(mugdis), mugdis.grid, c=:Blues)
+heatmap(mugdis, c=:Blues, dpi=120)
 savefig(joinpath("figures", "geodistance_mutualism.png"))
-heatmap(longitudes(mubdis), latitudes(mubdis), log.(mubdis.grid.+1.0), c=:Blues, clim=(0,4.5))
+heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=120)
 savefig(joinpath("figures", "envirodistance_mutualism.png"))
