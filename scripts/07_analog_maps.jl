@@ -54,13 +54,11 @@ for lon in longitudes(prgdis)
 			cell_bc_values = [zb[lon,lat] for zb in zbc]
 			cell_bc_distance = vec(sum(sqrt.((pr_bc_webs.-cell_bc_values').^2.0); dims=2))
 			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
-			prgdis[lon,lat] = mean(sort(all_dist)[1:5])
+			prgdis[lon,lat] = log(mean(sort(all_dist)[1:5])+1)
 			prbdis[lon,lat] = mean(sort(cell_bc_distance)[1:5])
 		end
 	end
 end
-
-qt(x) = ecdf(filter(!isnan, x))
 
 heatmap(prgdis, c=:Greens, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))
