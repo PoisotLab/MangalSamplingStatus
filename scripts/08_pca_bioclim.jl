@@ -4,7 +4,7 @@ using StatsPlots
 using Statistics
 using MultivariateStats
 
-mangal = CSV.read(joinpath("data", "network_data.dat"))
+mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 bcdata = dropmissing(mangal, [:bc1]; disallowmissing = true)
 bcdata = bcdata[.!isnan.(bcdata.bc1), :]

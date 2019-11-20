@@ -2,7 +2,7 @@ using SimpleSDMLayers
 using DataFrames
 using CSV
 
-network_metadata = CSV.read(joinpath("data", "network_metadata.dat"))
+network_metadata = CSV.read(joinpath("data", "network_metadata.csv"))
 
 wc_data = worldclim(1:19; resolution="10")
 
@@ -19,4 +19,4 @@ for layer_number in 1:length(wc_data)
    network_bioclim[!, Symbol("bc"*string(layer_number))] = tmp
 end
 
-CSV.write(joinpath("data", "network_bioclim.dat"), network_bioclim)
+CSV.write(joinpath("data", "network_bioclim.csv"), network_bioclim)

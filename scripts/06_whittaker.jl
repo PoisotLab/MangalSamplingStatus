@@ -2,7 +2,7 @@ using DataFrames
 using CSV
 using Plots
 
-mangal = CSV.read(joinpath("data", "network_data.dat"))
+mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 # Remove everything that has a missing date
 whittaker = dropmissing(mangal, [:bc1, :bc12]; disallowmissing = true)

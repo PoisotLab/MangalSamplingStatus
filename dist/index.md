@@ -22,10 +22,10 @@ the build step, although the results are not committed to the `master` branch.
 
 | Output                                                      | Script                   | Description                                                          |
 | ----------------------------------------------------------- | ------------------------ | -------------------------------------------------------------------- |
-| [`network_metadata.dat`](data/network_metadata.dat)         | `01_get_metadata.jl`     | id, name, latitude, and longitude                                    |
-| [`network_interactions.dat`](data/network_interactions.dat) | `02_get_interactions.jl` | id, number of nodes, links, predation, parasitism, mutualism         |
-| [`network_bioclim.dat`](data/network_bioclim.dat)           | `03_get_bioclim.jl`      | id, one column for each bioclim variable                             |
-| [`network_data.dat`](data/network_data.dat)                 | `04_merge_data.jl`       | merge of the three previous steps (main table used for the analysis) |
+| [`network_metadata.csv`](data/network_metadata.csv)         | `01_get_metadata.jl`     | id, name, latitude, and longitude                                    |
+| [`network_interactions.csv`](data/network_interactions.csv) | `02_get_interactions.jl` | id, number of nodes, links, predation, parasitism, mutualism         |
+| [`network_bioclim.csv`](data/network_bioclim.csv)           | `03_get_bioclim.jl`      | id, one column for each bioclim variable                             |
+| [`network_data.csv`](data/network_data.csv)                 | `04_merge_data.jl`       | merge of the three previous steps (main table used for the analysis) |
 
 # Figures
 

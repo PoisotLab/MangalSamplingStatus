@@ -6,7 +6,7 @@ using SimpleSDMLayers
 
 include(joinpath("..", "lib", "worldshape.jl"))
 
-mangal = CSV.read(joinpath("data", "network_data.dat"))
+mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 # Remove everything that has a missing date
 with_date = dropmissing(mangal, :date; disallowmissing = true)

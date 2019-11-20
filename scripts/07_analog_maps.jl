@@ -7,7 +7,7 @@ using Statistics
 include(joinpath("..", "lib", "haversine.jl"))
 include(joinpath("..", "lib", "zscores.jl"))
 
-mangal = CSV.read(joinpath("data", "network_data.dat"))
+mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 # Remove everything that has a missing latitude, longitude, or bc1
 bcdata = dropmissing(mangal, [:latitude, :longitude, :bc1]; disallowmissing = true)
