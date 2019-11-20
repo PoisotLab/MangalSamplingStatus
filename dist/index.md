@@ -10,13 +10,26 @@ the most recent version of the data, of the packages used for the analysis, and
 of their dependencies, then generates the data frames and figures, and pushes
 everything to this page.
 
+The code to reproduce everything in this page is available at
+[https://github.com/PoisotLab/MangalSamplingStatus](https://github.com/PoisotLab/MangalSamplingStatus).
+
+These analyses were the basis of the following article:
+
+> COMING SOON
+
+Although the artifacts described in [Data files](#data-files) can be used for
+teaching or exploratory projects, we recommend starting from the database. A
+[*Julia* wrapper](https://mangal.io/doc/jl/), `Mangal.jl`, is available for this
+purpose.
+
 # Project organization
 
-The repository only stores the scripts (in `scripts`) and a few helper functions
-(in `lib`), as well as the workflow. Everything else gets generated weekly. The
-`gh-pages` branch has a copy of the figures (in `figures`) and data (in `data`).
-All of the website material are in the `dist` folder, which is written in during
-the build step, although the results are not committed to the `master` branch.
+The `master` branch of the repository only stores the scripts (in `scripts`) and
+a few helper functions (in `lib`), as well as the workflow. Everything else gets
+generated weekly. The `gh-pages` branch has a copy of the figures (in `figures`)
+and data (in `data`). All of the website material are in the `dist` folder,
+which is written in during the build step, although the results are *not*
+committed to the `master` branch.
 
 # Data files
 
