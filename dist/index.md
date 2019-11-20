@@ -20,6 +20,12 @@ the build step, although the results are not committed to the `master` branch.
 
 # Data files
 
+This table summarizes the files that are generated at the various steps of the
+pipeline. Steps `01` to `04` are about data collection, cleaning, and
+integration, and steps `05` to `08` are about plotting and analysis. All of the
+scripts can be downloaded from the `master` branch on github. The `csv` files
+can be downloaded here directly.
+
 | Output                                                      | Script                   | Description                                                          |
 | ----------------------------------------------------------- | ------------------------ | -------------------------------------------------------------------- |
 | [`network_metadata.csv`](data/network_metadata.csv)         | `01_get_metadata.jl`     | id, name, latitude, and longitude                                    |
