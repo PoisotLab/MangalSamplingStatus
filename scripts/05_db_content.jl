@@ -19,6 +19,11 @@ with_date.tick = collect(1:size(with_date, 1))
 plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft)
 savefig(joinpath("figures", "increase_over_time.png"))
 
+# Network properties
+scatter(with_date.date, with_date.nodes, lab="Nodes", c=:black, legend=:topleft)
+scatter!(with_date.date, with_date.links, lab="Interactions", c=:grey)
+savefig(joinpath("figures", "properties_over_time.png"))
+
 para = with_date[with_date.parasitism.>0,:]
 para.tick = collect(1:size(para, 1))
 mutu = with_date[with_date.mutualism.>0,:]
