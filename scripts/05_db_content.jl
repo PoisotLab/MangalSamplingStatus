@@ -21,8 +21,9 @@ scatter(with_date.date, with_date.nodes, lab="Richness", c=:black, legend=:tople
 savefig(joinpath("figures", "properties_over_time.png"))
 
 # And plot
-plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft)
+plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft, frame=:black, dpi=200)
 savefig(joinpath("figures", "increase_over_time.png"))
+savefig(joinpath("figures", "increase_over_time.pdf"))
 
 para = with_date[with_date.parasitism.>0,:]
 para.tick = collect(1:size(para, 1))
@@ -38,16 +39,18 @@ plot!(pred.date, pred.tick, c="#009e73", lab="Predation")
 xaxis!("Date of collection")
 yaxis!("Number of networks")
 savefig(joinpath("figures", "network_growth_over_time.png"))
+savefig(joinpath("figures", "network_growth_over_time.pdf"))
 
 oknetworks = mangal[mangal.links .> 0, :]
 
-scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black)
+scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black, dpi=200, frame=:box)
 xaxis!(:log, "Number of nodes")
 yaxis!(:log, "Number of links")
 savefig(joinpath("figures", "links_species_relationship.png"))
+savefig(joinpath("figures", "links_species_relationship.pdf"))
 
 world = worldshape(50)
-networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft, frame=:box, aspectratio=1)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft, frame=:box, aspectratio=1, dpi=200)
 xaxis!(networkplot, (-180,180), "Longitude")
 yaxis!(networkplot, (-90,90), "Latitude")
 
@@ -67,3 +70,4 @@ scatter!(networkplot, mutu[:longitude], mutu[:latitude], c="#56b4e9", lab="Mutua
 scatter!(networkplot, pred[:longitude], pred[:latitude], c="#009e73", lab="Predation")
 
 savefig(joinpath("figures", "map_networks_type.png"))
+savefig(joinpath("figures", "map_networks_type.pdf"))
