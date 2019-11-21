@@ -102,3 +102,11 @@ heatmap(mugdis, c=:Blues, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_mutualism.png"))
 heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_mutualism.png"))
+
+plot(
+	heatmap(prbdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
+	heatmap(pabdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
+	heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
+	layout=(3,1)
+)
+savefig(joinpath("figures", "combined_envirodist_maps.pdf"))
