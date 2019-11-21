@@ -60,9 +60,9 @@ for lon in longitudes(prgdis)
 	end
 end
 
-heatmap(prgdis, c=:Greens, frame=:box)
+heatmap(prgdis, c=:Greens, frame=:box, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))
-heatmap(prbdis, c=:Greens, frame=:box)
+heatmap(prbdis, c=:Greens, frame=:box, clim=(0.0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_predation.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(padata)]
@@ -79,9 +79,9 @@ for lon in longitudes(pagdis)
 	end
 end
 
-heatmap(pagdis, c=:Oranges)
+heatmap(pagdis, c=:Oranges, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_parasitism.png"))
-heatmap(pabdis, c=:Oranges, clim=(0,4.5))
+heatmap(pabdis, c=:Oranges, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_parasitism.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(mudata)]
@@ -98,7 +98,7 @@ for lon in longitudes(mugdis)
 	end
 end
 
-heatmap(mugdis, c=:Blues, dpi=120)
+heatmap(mugdis, c=:Blues, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_mutualism.png"))
-heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=120)
+heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_mutualism.png"))
