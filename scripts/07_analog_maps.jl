@@ -60,9 +60,9 @@ for lon in longitudes(prgdis)
 	end
 end
 
-heatmap(prgdis, c=:Greens, frame=:box, dpi=200, frame=:box)
+heatmap(prgdis, c=:Greens, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))
-heatmap(prbdis, c=:Greens, frame=:box, clim=(0.0,4.5), dpi=200, frame=:box)
+heatmap(prbdis, c=:Greens, clim=(0.0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_predation.png"))
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(padata)]
