@@ -32,13 +32,13 @@ scatter(para.pc1, para.pc2, frame=:origin, c="#e69f00", lab="Parasitism", legend
 scatter!(mutu.pc1, mutu.pc2, c="#56b4e9", lab="Mutualism")
 scatter!(pred.pc1, pred.pc2, c="#009e73", lab="Predation")
 savefig(joinpath("figures", "networks_pca.png"))
-savefig(joinpath("figures", "networks_pca.pdf"))
+# savefig(joinpath("figures", "networks_pca.pdf"))
 
 density(para.pc1, c="#e69f00", lab="Parasitism", dpi=200, frame=:box, xlabel="Position on PC1")
 density!(mutu.pc1, c="#56b4e9", lab="Mutualism")
 density!(pred.pc1, c="#009e73", lab="Predation")
 savefig(joinpath("figures", "position_on_pc1.png"))
-savefig(joinpath("figures", "position_on_pc1.pdf"))
+# savefig(joinpath("figures", "position_on_pc1.pdf"))
 
 m = maximum(bcdata.D)
 
@@ -47,4 +47,4 @@ density!(mutu.D./m, c="#56b4e9", lab="Mutualism")
 density!(pred.D./m, c="#009e73", lab="Predation")
 xaxis!((0,1), "Ranged distance to centroid")
 savefig(joinpath("figures", "distance_to_centroid.png"))
-savefig(joinpath("figures", "distance_to_centroid.pdf"))
+# savefig(joinpath("figures", "distance_to_centroid.pdf"))

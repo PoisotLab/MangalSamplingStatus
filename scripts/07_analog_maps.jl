@@ -112,4 +112,4 @@ plot(
 	heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
 	layout=(3,1)
 )
-savefig(joinpath("figures", "combined_envirodist_maps.pdf"))
+# savefig(joinpath("figures", "combined_envirodist_maps.pdf"))
