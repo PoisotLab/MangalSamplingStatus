@@ -4,7 +4,7 @@ using Plots
 using Shapefile
 using SimpleSDMLayers
 
-using PyPlot
+
 pyplot()
 
 include(joinpath("..", "lib", "worldshape.jl"))

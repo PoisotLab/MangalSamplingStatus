@@ -4,7 +4,7 @@ using Plots
 using SimpleSDMLayers
 using Statistics
 
-using PyPlot
+
 pyplot()
 
 include(joinpath("..", "lib", "haversine.jl"))
