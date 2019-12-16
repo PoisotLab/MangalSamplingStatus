@@ -24,6 +24,8 @@ jobs:
         run: julia --project -e 'import Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/EcoJulia/SimpleSDMLayers.jl"))'
       - name: "Install other packages"
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
+      - name: "Install PyPlot"
+        run: julia --project -e 'ENV["PYTHON"]=""; import Pkg. Pkg.build()'
       - name: "Prepare folders"
         run: |
           mkdir -p data
