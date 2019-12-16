@@ -2,6 +2,9 @@ using DataFrames
 using CSV
 using Plots
 
+using PyPlot
+pyplot()
+
 mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 # Remove everything that has a missing date

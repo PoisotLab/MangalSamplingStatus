@@ -4,6 +4,9 @@ using StatsPlots
 using Statistics
 using MultivariateStats
 
+using PyPlot
+pyplot()
+
 mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 bcdata = dropmissing(mangal, [:bc1]; disallowmissing = true)

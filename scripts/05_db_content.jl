@@ -4,6 +4,9 @@ using Plots
 using Shapefile
 using SimpleSDMLayers
 
+using PyPlot
+pyplot()
+
 include(joinpath("..", "lib", "worldshape.jl"))
 
 mangal = CSV.read(joinpath("data", "network_data.csv"))
