@@ -106,10 +106,20 @@ savefig(joinpath("figures", "geodistance_mutualism.png"))
 heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_mutualism.png"))
 
+pr1 = heatmap(prbdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+title!(pr1, "Predation")
+
+pr2 = heatmap(pabdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+title!(pr2, "Parasitism")
+
+pr3 = heatmap(mubdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+title!(pr3, "Mutualism")
+
 plot(
-	heatmap(prbdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
-	heatmap(pabdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
-	heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box),
-	layout=(3,1)
+	pr1,
+	pr2,
+	pr3,
+	layout=(3,1), size=(800, 1800)
 )
-# savefig(joinpath("figures", "combined_envirodist_maps.pdf"))
+
+savefig(joinpath("figures", "combined_envirodist_maps.png"))

@@ -53,7 +53,7 @@ savefig(joinpath("figures", "links_species_relationship.png"))
 # savefig(joinpath("figures", "links_species_relationship.pdf"))
 
 world = worldshape(50)
-networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:bottomleft, frame=:box, aspectratio=1, dpi=200)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:left, frame=:box, aspectratio=1, dpi=200)
 xaxis!(networkplot, (-180,180), "Longitude")
 yaxis!(networkplot, (-90,90), "Latitude")
 
@@ -68,9 +68,9 @@ para = okdata[okdata.parasitism.>0,:]
 mutu = okdata[okdata.mutualism.>0,:]
 pred = okdata[okdata.predation.>0,:]
 
-scatter!(networkplot, para[:longitude], para[:latitude], c="#e69f00", lab="Parasitism")
-scatter!(networkplot, mutu[:longitude], mutu[:latitude], c="#56b4e9", lab="Mutualism")
-scatter!(networkplot, pred[:longitude], pred[:latitude], c="#009e73", lab="Predation")
+scatter!(networkplot, para[!, :longitude], para[!, :latitude], c="#e69f00", lab="Parasitism")
+scatter!(networkplot, mutu[!, :longitude], mutu[!, :latitude], c="#56b4e9", lab="Mutualism")
+scatter!(networkplot, pred[!, :longitude], pred[!, :latitude], c="#009e73", lab="Predation")
 
 savefig(joinpath("figures", "map_networks_type.png"))
 # savefig(joinpath("figures", "map_networks_type.pdf"))
