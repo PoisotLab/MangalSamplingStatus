@@ -65,8 +65,13 @@ end
 
 heatmap(prgdis, c=:Greens, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
+
 heatmap(prbdis, c=:Greens, clim=(0.0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_predation.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(padata)]
 for lon in longitudes(pagdis)
@@ -84,8 +89,13 @@ end
 
 heatmap(pagdis, c=:Oranges, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_parasitism.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
+
 heatmap(pabdis, c=:Oranges, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_parasitism.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
 
 all_cells = [(b.λ, b.ϕ) for b in eachrow(mudata)]
 for lon in longitudes(mugdis)
@@ -103,16 +113,27 @@ end
 
 heatmap(mugdis, c=:Blues, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_mutualism.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
+
 heatmap(mubdis, c=:Blues, clim=(0,4.5), dpi=200, frame=:box)
 savefig(joinpath("figures", "envirodistance_mutualism.png"))
+xaxis!((-180,80), "Longitude")
+yaxis!((-90,90), "Latitude")
 
-pr1 = heatmap(prbdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+pr1 = heatmap(prbdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800), colorbar=:none)
+xaxis!(pr1, (-180,80), "Longitude")
+yaxis!(pr1, (-90,90), "Latitude")
 title!(pr1, "Predation")
 
-pr2 = heatmap(pabdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+pr2 = heatmap(pabdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800), colorbar=:none)
+xaxis!(pr2, (-180,80), "Longitude")
+yaxis!(pr2, (-90,90), "Latitude")
 title!(pr2, "Parasitism")
 
-pr3 = heatmap(mubdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800))
+pr3 = heatmap(mubdis, c=:viridis, clim=(0,4.5), dpi=200, frame=:box, leg=false, size=(900,800), colorbar=:none)
+xaxis!(pr3, (-180,80), "Longitude")
+yaxis!(pr3, (-90,90), "Latitude")
 title!(pr3, "Mutualism")
 
 plot(
