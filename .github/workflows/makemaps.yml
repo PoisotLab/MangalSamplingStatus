@@ -22,8 +22,6 @@ jobs:
           version: ${{ matrix.julia-version }}
       - name: "Install packages"
         run: julia --project -e "import Pkg; Pkg.instantiate(); Pkg.update()"
-      - name: "Install and build PyPlot"
-        run: julia --project -e 'ENV["PYTHON"]=""; import Pkg; Pkg.build(); using PyPlot'
       - name: "Prepare folders"
         run: |
           mkdir -p data

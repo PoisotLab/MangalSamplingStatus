@@ -4,12 +4,9 @@ using Plots
 using Shapefile
 using SimpleSDMLayers
 
+include(joinpath(pwd(), "lib", "worldshape.jl"))
 
-pyplot()
-
-include(joinpath("..", "lib", "worldshape.jl"))
-
-mangal = CSV.read(joinpath("data", "network_data.csv"))
+mangal = DataFrame(CSV.File(joinpath("data", "network_data.csv")))
 
 # Remove everything that has a missing date
 with_date = dropmissing(mangal, :date; disallowmissing = true)
@@ -19,14 +16,16 @@ sort!(with_date, [:date])
 with_date.tick = collect(1:size(with_date, 1))
 
 # Network properties
-scatter(with_date.date, with_date.nodes, lab="Richness", c=:black, legend=:topleft)
-#yaxis!(:log)
+scatter(with_date.date, with_date.nodes, lab="", c=:grey, msw=0.0, alpha=0.5, legend=:topleft, frame=:box)
+xaxis!("Date")
+yaxis!((1, 1600), "Species richness", :log10)
 savefig(joinpath("figures", "properties_over_time.png"))
 
 # And plot
-plot(with_date.date, with_date.tick, lab="All networks", c=:black, legend=:topleft, frame=:black, dpi=200)
+plot(with_date.date, with_date.tick, lab="", c=:black, legend=:topleft, frame=:box, dpi=200)
+xaxis!("Date")
+yaxis!((1, 1400), "Number of networks")
 savefig(joinpath("figures", "increase_over_time.png"))
-# savefig(joinpath("figures", "increase_over_time.pdf"))
 
 para = with_date[with_date.parasitism.>0,:]
 para.tick = collect(1:size(para, 1))
@@ -39,10 +38,7 @@ plot!(para.date, para.tick, c="#e69f00", lab="Parasitism")
 plot!(mutu.date, mutu.tick, c="#56b4e9", lab="Mutualism")
 plot!(pred.date, pred.tick, c="#009e73", lab="Predation")
 
-xaxis!("Date of collection")
-yaxis!("Number of networks")
 savefig(joinpath("figures", "network_growth_over_time.png"))
-# savefig(joinpath("figures", "network_growth_over_time.pdf"))
 
 oknetworks = mangal[mangal.links .> 0, :]
 
@@ -50,7 +46,6 @@ scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black, dpi=200, frame=
 xaxis!(:log, "Number of nodes")
 yaxis!(:log, "Number of links")
 savefig(joinpath("figures", "links_species_relationship.png"))
-# savefig(joinpath("figures", "links_species_relationship.pdf"))
 
 world = worldshape(50)
 networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:left, frame=:box, aspectratio=1, dpi=200)
