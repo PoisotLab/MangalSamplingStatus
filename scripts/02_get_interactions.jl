@@ -3,7 +3,7 @@ using DataFrames
 using CSV
 using GeoInterface
 
-network_metadata = CSV.read(joinpath("data", "network_metadata.csv"))
+network_metadata = DataFrame(CSV.File(joinpath("data", "network_metadata.csv")))
 
 network_interactions = DataFrame()
 network_interactions.id = network_metadata.id

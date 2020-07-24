@@ -41,4 +41,6 @@ latitude(n::MangalNetwork) = get_coordinates(n; dims=2)
 network_metadata.latitude = latitude.(all_networks)
 network_metadata.longitude = longitude.(all_networks)
 
+ispath("data") || mkpath("data")
+
 CSV.write(joinpath("data", "network_metadata.csv"), network_metadata)
