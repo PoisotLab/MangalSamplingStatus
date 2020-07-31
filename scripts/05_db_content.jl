@@ -16,13 +16,13 @@ sort!(with_date, [:date])
 with_date.tick = collect(1:size(with_date, 1))
 
 # Network properties
-scatter(with_date.date, with_date.nodes, lab="", c=:grey, msw=0.0, alpha=0.5, legend=:topleft, frame=:box)
+scatter(with_date.date, with_date.nodes, lab="", c=:grey, msw=0.0, alpha=0.5, legend=:topleft, frame=:box, dpi=180)
 xaxis!("Date")
 yaxis!((1, 1600), "Species richness", :log10)
 savefig(joinpath("figures", "properties_over_time.png"))
 
 # And plot
-plot(with_date.date, with_date.tick, lab="", c=:black, legend=:topleft, frame=:box, dpi=200)
+plot(with_date.date, with_date.tick, lab="", c=:black, legend=:topleft, frame=:box, dpi=180)
 xaxis!("Date")
 yaxis!((1, 1400), "Number of networks")
 savefig(joinpath("figures", "increase_over_time.png"))
@@ -42,13 +42,13 @@ savefig(joinpath("figures", "network_growth_over_time.png"))
 
 oknetworks = mangal[mangal.links .> 0, :]
 
-scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black, dpi=200, frame=:box)
+scatter(oknetworks.nodes, oknetworks.links, leg=false, c=:black, dpi=180, frame=:box)
 xaxis!(:log, "Number of nodes")
 yaxis!(:log, "Number of links")
 savefig(joinpath("figures", "links_species_relationship.png"))
 
 world = worldshape(50)
-networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:left, frame=:box, aspectratio=1, dpi=200)
+networkplot = plot([0.0], lab="", msw=0.0, ms=0.0, legend=:left, frame=:box, aspectratio=1, dpi=180)
 xaxis!(networkplot, (-180,180), "Longitude")
 yaxis!(networkplot, (-90,90), "Latitude")
 

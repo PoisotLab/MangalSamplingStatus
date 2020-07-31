@@ -4,64 +4,57 @@ using Plots
 using SimpleSDMLayers
 using Statistics
 
-
-pyplot()
-
-include(joinpath("..", "lib", "haversine.jl"))
 include(joinpath("..", "lib", "zscores.jl"))
 
 mangal = CSV.read(joinpath("data", "network_data.csv"))
 
 # Remove everything that has a missing latitude, longitude, or bc1
 bcdata = dropmissing(mangal, [:latitude, :longitude, :bc1]; disallowmissing = true)
-bcdata.ϕ = bcdata.latitude.*(π/180.0)
-bcdata.λ = bcdata.longitude.*(π/180.0)
 
 prdata = bcdata[bcdata.predation .> 0, :]
 padata = bcdata[bcdata.parasitism .> 0, :]
 mudata = bcdata[bcdata.mutualism .> 0, :]
 
-# Get a template layer and fill it with the haversine distance
-bc = worldclim(1:19; resolution="10")
-zbc = [z(b) for b in bc]
-bc1 = bc[1]
+# Transform the bioclim layers
+bc = worldclim(1:19; resolution=10.0, bottom=-60.0)
+zbc = z.(bc)
 
-prgdis = similar(bc1)
-prbdis = similar(bc1)
+geo_dis = similar(first(bc))
+env_dis = similar(first(bc))
 
-pagdis = similar(bc1)
-pabdis = similar(bc1)
-
-mugdis = similar(bc1)
-mubdis = similar(bc1)
-
-for i in 1:19
-	nc = Symbol("zbc"*string(i))
-	oc = Symbol("bc"*string(i))
-	prdata[nc] = [z(v, bc[i]) for v in prdata[oc]]
-	padata[nc] = [z(v, bc[i]) for v in padata[oc]]
-	mudata[nc] = [z(v, bc[i]) for v in mudata[oc]]
+all_cells = [(b.longitude, b.latitude) for b in eachrow(prdata)]
+bc_obs = ones(Float64, (length(bc), length(all_cells)))
+for j in 1:length(all_cells)
+    try
+        this_bc = [zb[all_cells[j]...] for zb in zbc]
+        bc_obs[:,j] = this_bc
+    catch
+    end
 end
 
-bc_colnames = Symbol.("zbc".*string.(1:19))
-
-pr_bc_webs = convert(Matrix, prdata[:,bc_colnames])
-pa_bc_webs = convert(Matrix, padata[:,bc_colnames])
-mu_bc_webs = convert(Matrix, mudata[:,bc_colnames])
-
-all_cells = [(b.λ, b.ϕ) for b in eachrow(prdata)]
-for lon in longitudes(prgdis)
-	for lat in latitudes(prgdis)
-		cell = (lon*π/180.0, lat*π/180.0)
-		if !isnan(prgdis[lon,lat])
-			cell_bc_values = [zb[lon,lat] for zb in zbc]
-			cell_bc_distance = vec(sum(sqrt.((pr_bc_webs.-cell_bc_values').^2.0); dims=2))
-			all_dist = [haversine(c, cell, 6371.0) for c in all_cells]
-			prgdis[lon,lat] = mean(sort(all_dist)[1:5])
-			prbdis[lon,lat] = log(mean(sort(cell_bc_distance)[1:5])+1.0)
+Base.Threads.@threads for lon in longitudes(geo_dis)
+	for lat in latitudes(geo_dis)
+		cell = (lon, lat)
+        # @info cell
+		if !isnothing(geo_dis[cell...])
+            # Climatic distance
+            cell_bc_values = [zb[cell...] for zb in zbc]
+			cell_bc_distance = vec(sum(sqrt.((bc_obs'.-cell_bc_values').^2.0); dims=2))
+            env_dis[cell...] = Float32(mean(sort(cell_bc_distance)[1:5]))
+            # Haversine distance
+			all_dist = [SimpleSDMLayers.haversine(c, cell) for c in all_cells]
+            geo_dis[cell...] = Float32(mean(sort(all_dist)[1:5]))
 		end
 	end
 end
+
+heatmap(log1p(env_dis), c=:viridis)
+savefig(joinpath("figures", "test1.png"))
+
+heatmap(geo_dis, c=:viridis)
+savefig(joinpath("figures", "test2.png"))
+
+error("no")
 
 heatmap(prgdis, c=:Greens, dpi=200, frame=:box)
 savefig(joinpath("figures", "geodistance_predation.png"))

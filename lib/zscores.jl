@@ -2,11 +2,11 @@
 Normalizes a layer (z-score)
 """
 function z!(p::T) where {T <: SimpleSDMResponse}
-   d = filter(!isnan, p.grid)
+   d = filter(!isnothing, p.grid)
    μ = mean(d)
    σ = std(d)
 	for i in eachindex(p.grid)
-		if !isnan(p[i])
+		if !isnothing(p[i])
 			p.grid[i] = (p.grid[i]-μ)/σ
 		end
 	end
@@ -30,6 +30,6 @@ Normalizes a value (z-score)
 """
 function z(v, p::T) where {T <: SimpleSDMLayer}
    @assert typeof(v) <: Number
-   d = filter(!isnan, p.grid)
+   d = filter(!isnothing, p.grid)
    return (v-mean(d))/std(d)
 end
