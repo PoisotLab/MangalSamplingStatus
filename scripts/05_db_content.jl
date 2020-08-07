@@ -133,7 +133,7 @@ scatter!(
     c = "#009e73",
     lab = "Predation",
     msw = 0.0,
-    ms = 3
+    ms = 3,
 )
 
 savefig(joinpath("figures", "map_networks_type.png"))
