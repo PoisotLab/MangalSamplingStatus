@@ -62,62 +62,81 @@ geo_prd, env_prd = distmap(prdata)
 
 p1 = heatmap(
     log1p(env_par),
-    c = :YlGnBu,
-    # clim = (0, 5.0),
+    c = :GnBu,
+    clim = (0, 4.5),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Mutualism"
 );
 p2 = heatmap(
     log1p(env_mut),
-    c = :YlGnBu,
-    # clim = (0, 5.0),
+    c = :GnBu,
+    clim = (0, 4.5),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Mutualism"
 );
 p3 = heatmap(
     log1p(env_prd),
-    c = :YlGnBu,
-    # clim = (0, 5.0),
+    c = :GnBu,
+    clim = (0, 4.5),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Predation"
 );
-plot(p1, p2, p3);
-savefig(joinpath("figures", "env-distance.png"))
-
 savefig(p1, joinpath("figures", "env-distance-para.png"))
 savefig(p2, joinpath("figures", "env-distance-mutu.png"))
 savefig(p3, joinpath("figures", "env-distance-pred.png"))
 
 p1 = heatmap(
     geo_par,
-    c = :YlGnBu,
-    # clim = (0, 6000),
+    c = :YlGn,
+    clim = (0, 5000),
     dpi = 200,
-    margin = 10mm,
+    margin = 5mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Parasitism"
 );
+savefig(p1, joinpath("figures", "geo-distance-para.png"))
+
 p2 = heatmap(
     geo_mut,
-    c = :YlGnBu,
-    # clim = (0, 6000),
+    c = :YlGn,
+    clim = (0, 5000),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Mutualism"
 );
 p3 = heatmap(
     geo_prd,
-    c = :YlGnBu,
-    # clim = (0, 6000),
+    c = :YlGn,
+    clim = (0, 5000),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
+    frame = :box,
+    top_margin = 1mm,
+    size=(500,250),
+    title="Predation"
 );
-plot(p1, p2, p3);
-savefig(joinpath("figures", "geo-distance.png"))
-
-savefig(p1, joinpath("figures", "geo-distance-para.png"))
 savefig(p2, joinpath("figures", "geo-distance-mutu.png"))
 savefig(p3, joinpath("figures", "geo-distance-pred.png"))
