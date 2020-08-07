@@ -27,6 +27,8 @@ bcdata.pc1 = P[1, :]
 bcdata.pc2 = P[2, :]
 bcdata.D = vec(sum(sqrt.(P .^ 2.0); dims = 1))
 
+CSV.write(joinpath("data", "network_post_pca.csv"), bcdata)
+
 para = bcdata[bcdata.parasitism .> 0, :]
 mutu = bcdata[bcdata.mutualism .> 0, :]
 pred = bcdata[bcdata.predation .> 0, :]
