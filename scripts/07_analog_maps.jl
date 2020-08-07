@@ -58,8 +58,16 @@ p3 = heatmap(log1p(env_prd), c=:YlGnBu_5, clim=(0, 5.0), dpi=180);
 plot(p1, p2, p3);
 savefig(joinpath("figures", "env-distance.png"))
 
+savefig(p1, joinpath("figures", "env-distance-para.png"))
+savefig(p2, joinpath("figures", "env-distance-mutu.png"))
+savefig(p3, joinpath("figures", "env-distance-pred.png"))
+
 p1 = heatmap(geo_par, c=:RdPu_5, clim=(0, 6000), dpi=180);
 p2 = heatmap(geo_mut, c=:RdPu_5, clim=(0, 6000), dpi=180);
 p3 = heatmap(geo_prd, c=:RdPu_5, clim=(0, 6000), dpi=180);
 plot(p1, p2, p3);
 savefig(joinpath("figures", "geo-distance.png"))
+
+savefig(p1, joinpath("figures", "geo-distance-para.png"))
+savefig(p2, joinpath("figures", "geo-distance-mutu.png"))
+savefig(p3, joinpath("figures", "geo-distance-pred.png"))

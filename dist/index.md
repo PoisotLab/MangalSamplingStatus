@@ -3,19 +3,24 @@ title: Database overview
 ---
 
 This page is automatically generated from the [`mangal.io`](http://mangal.io)
-database. It gives an overview, updated weekly, of the completeness of sampling.
-The figures and data are generated through the use of github actions, and
-reflect the most up to date state of the analysis. The workflow file downloads
-the most recent version of the data, of the packages used for the analysis, and
-of their dependencies, then generates the data frames and figures, and pushes
-everything to this page.
+database. It gives an overview, updated weekly, of the completeness of
+sampling.  The figures and data are generated through the use of github
+actions, and reflect the most up to date state of the analysis. The work
+flow file downloads the most recent version of the data, of the packages
+used for the analysis, and of their dependencies, then generates the data
+frames and figures, and pushes everything to this page.
 
 The code to reproduce everything in this page is available at
 [https://github.com/PoisotLab/MangalSamplingStatus](https://github.com/PoisotLab/MangalSamplingStatus).
 
-These analyses were the basis of the following article:
+These analyses were the basis of the following article (currently available
+as a preprint):
 
-> COMING SOON
+> *Environmental biases in the study of ecological networks at the planetary
+scale*   
+Timothée Poisot, Gabriel Bergeron, Kevin Cazelles, Tad Dallas, Dominique
+Gravel, Andrew Macdonald, Benjamin Mercier, Clément Violet, Steve Vissault   
+bioRxiv 2020.01.27.921429; doi: https://doi.org/10.1101/2020.01.27.921429
 
 Although the artifacts described in [Data files](#data-files) can be used for
 teaching or exploratory projects, we recommend starting from the database. A
@@ -87,44 +92,34 @@ have points distributed uniformly in the lower-left triangle.
 
 ![Biomes](figures/networks_by_biomes.png)
 
-## Spatial coverage of networks
+## Geographical coverage of networks
 
-The following maps represent the great-arc distance (in km) between every pixel
-on Earth to its five closest networks, and are stratified by type of
+The following maps represent the great-arc distance (in km) between every
+pixel on Earth to its five closest networks, and are stratified by type of
 interaction. Areas that are paler have more networks, and darker areas are
-therefore good candidates for either sampling, or digitization of existing data.
+therefore good candidates for either sampling, or digitization of existing
+data.
 
-### Predation
-
-![Predation](figures/geodistance_predation.png)
-
-### Parasitism
-
-![Parasitism](figures/geodistance_parasitism.png)
-
-### Mutualism
-
-![Mutualism](figures/geodistance_mutualism.png)
-
-## Environmental coverage of networks
-
-By similarity with the previous set of maps, this section shows the natural log
-of the Euclidean distance between every pixel on Earth and the bioclimatic
+By similarity with the previous set of maps, this section shows the natural
+log of the Euclidean distance between every pixel on Earth and the bioclimatic
 conditions of its five closest neighbors in which a networks has been sampled.
-Areas that are darker do not have good climate analogues, and are therefore good
-candidates for either sampling, or digitization of existing data.
+Areas that are darker do not have good climate analogues, and are therefore
+good candidates for either sampling, or digitization of existing data.
 
 ### Predation
 
-![Predation](figures/envirodistance_predation.png)
+![Predation](figures/env-distance-pred.png)
+![Predation](figures/geo-distance-pred.png)
 
 ### Parasitism
 
-![Parasitism](figures/envirodistance_parasitism.png)
+![Predation](figures/env-distance-para.png)
+![Predation](figures/geo-distance-para.png)
 
 ### Mutualism
 
-![Mutualism](figures/envirodistance_mutualism.png)
+![Predation](figures/env-distance-mutu.png)
+![Predation](figures/geo-distance-mutu.png)
 
 ## Originality of sampled environments
 
