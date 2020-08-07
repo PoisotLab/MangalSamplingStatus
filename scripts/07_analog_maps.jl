@@ -26,7 +26,7 @@ bc = worldclim(1:19; resolution = 10.0, bottom = -60.0)
 
 zbc = z.(bc)
 
-function distmap(intdata; k = 5)
+function distmap(intdata; k = 3)
     geo_dis = similar(first(bc))
     env_dis = similar(first(bc))
     all_cells = [(b.longitude, b.latitude) for b in eachrow(intdata)]
@@ -62,7 +62,7 @@ geo_prd, env_prd = distmap(prdata)
 
 p1 = heatmap(
     log1p(env_par),
-    c = cmap_para,
+    c = :YlGnBu,
     # clim = (0, 5.0),
     dpi = 200,
     margin = 10mm,
@@ -70,7 +70,7 @@ p1 = heatmap(
 );
 p2 = heatmap(
     log1p(env_mut),
-    c = cmap_mutu,
+    c = :YlGnBu,
     # clim = (0, 5.0),
     dpi = 200,
     margin = 10mm,
@@ -78,7 +78,7 @@ p2 = heatmap(
 );
 p3 = heatmap(
     log1p(env_prd),
-    c = :Greens,
+    c = :YlGnBu,
     # clim = (0, 5.0),
     dpi = 200,
     margin = 10mm,
@@ -93,24 +93,24 @@ savefig(p3, joinpath("figures", "env-distance-pred.png"))
 
 p1 = heatmap(
     geo_par,
-    c = :RdPu_5,
-    clim = (0, 6000),
+    c = :YlGnBu,
+    # clim = (0, 6000),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
 );
 p2 = heatmap(
     geo_mut,
-    c = :RdPu_5,
-    clim = (0, 6000),
+    c = :YlGnBu,
+    # clim = (0, 6000),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,
 );
 p3 = heatmap(
     geo_prd,
-    c = :RdPu_5,
-    clim = (0, 6000),
+    c = :YlGnBu,
+    # clim = (0, 6000),
     dpi = 200,
     margin = 10mm,
     foreground_color_legend = nothing,

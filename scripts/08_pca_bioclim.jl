@@ -25,6 +25,8 @@ P = MultivariateStats.transform(M, bc_std)
 
 bcdata.pc1 = P[1, :]
 bcdata.pc2 = P[2, :]
+bcdata.pc3 = P[3, :]
+bcdata.pc4 = P[4, :]
 bcdata.D = vec(sum(sqrt.(P .^ 2.0); dims = 1))
 
 CSV.write(joinpath("data", "network_post_pca.csv"), bcdata)
