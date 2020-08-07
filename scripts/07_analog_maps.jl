@@ -1,10 +1,16 @@
 using DataFrames
 using CSV
 using Plots
+using Plots.PlotMeasures
 using SimpleSDMLayers
 using Statistics
 
-include(joinpath("..", "lib", "zscores.jl"))
+include(joinpath(pwd(), "lib", "zscores.jl"))
+
+cmap_start = "#f0f0f0"
+cmap_para = [cmap_start, "#e69f00"]
+cmap_mutu = [cmap_start, "#56b4e9"]
+cmap_pred = [cmap_start, "#009e73"]
 
 mangal = CSV.read(joinpath("data", "network_data.csv"))
 
@@ -16,18 +22,19 @@ padata = bcdata[bcdata.parasitism .> 0, :]
 mudata = bcdata[bcdata.mutualism .> 0, :]
 
 # Transform the bioclim layers
-bc = worldclim(1:19; resolution=10.0, bottom=-60.0)
+bc = worldclim(1:19; resolution = 10.0, bottom = -60.0)
+
 zbc = z.(bc)
 
-function distmap(intdata; k=5)
+function distmap(intdata; k = 5)
     geo_dis = similar(first(bc))
     env_dis = similar(first(bc))
     all_cells = [(b.longitude, b.latitude) for b in eachrow(intdata)]
     bc_obs = ones(Float64, (length(bc), length(all_cells)))
-    for j in 1:length(all_cells)
+    for j = 1:length(all_cells)
         try
             this_bc = [zb[all_cells[j]...] for zb in zbc]
-            bc_obs[:,j] = this_bc
+            bc_obs[:, j] = this_bc
         catch
         end
     end
@@ -37,7 +44,8 @@ function distmap(intdata; k=5)
             if !isnothing(geo_dis[cell...])
                 # Climatic distance
                 cell_bc_values = [zb[cell...] for zb in zbc]
-                cell_bc_distance = vec(sum(sqrt.((bc_obs'.-cell_bc_values').^2.0); dims=2))
+                cell_bc_distance =
+                    vec(sum(sqrt.((bc_obs' .- cell_bc_values') .^ 2.0); dims = 2))
                 env_dis[cell...] = Float32(mean(sort(cell_bc_distance)[1:k]))
                 # Haversine distance
                 all_dist = [SimpleSDMLayers.haversine(c, cell) for c in all_cells]
@@ -52,9 +60,30 @@ geo_par, env_par = distmap(padata)
 geo_mut, env_mut = distmap(mudata)
 geo_prd, env_prd = distmap(prdata)
 
-p1 = heatmap(log1p(env_par), c=:YlGnBu_5, clim=(0, 5.0), dpi=180);
-p2 = heatmap(log1p(env_mut), c=:YlGnBu_5, clim=(0, 5.0), dpi=180);
-p3 = heatmap(log1p(env_prd), c=:YlGnBu_5, clim=(0, 5.0), dpi=180);
+p1 = heatmap(
+    log1p(env_par),
+    c = cmap_para,
+    # clim = (0, 5.0),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
+p2 = heatmap(
+    log1p(env_mut),
+    c = cmap_mutu,
+    # clim = (0, 5.0),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
+p3 = heatmap(
+    log1p(env_prd),
+    c = :Greens,
+    # clim = (0, 5.0),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
 plot(p1, p2, p3);
 savefig(joinpath("figures", "env-distance.png"))
 
@@ -62,9 +91,30 @@ savefig(p1, joinpath("figures", "env-distance-para.png"))
 savefig(p2, joinpath("figures", "env-distance-mutu.png"))
 savefig(p3, joinpath("figures", "env-distance-pred.png"))
 
-p1 = heatmap(geo_par, c=:RdPu_5, clim=(0, 6000), dpi=180);
-p2 = heatmap(geo_mut, c=:RdPu_5, clim=(0, 6000), dpi=180);
-p3 = heatmap(geo_prd, c=:RdPu_5, clim=(0, 6000), dpi=180);
+p1 = heatmap(
+    geo_par,
+    c = :RdPu_5,
+    clim = (0, 6000),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
+p2 = heatmap(
+    geo_mut,
+    c = :RdPu_5,
+    clim = (0, 6000),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
+p3 = heatmap(
+    geo_prd,
+    c = :RdPu_5,
+    clim = (0, 6000),
+    dpi = 200,
+    margin = 10mm,
+    foreground_color_legend = nothing,
+);
 plot(p1, p2, p3);
 savefig(joinpath("figures", "geo-distance.png"))
 
