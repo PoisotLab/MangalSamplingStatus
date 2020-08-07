@@ -15,7 +15,7 @@ bc_webs = convert(Matrix, bcdata[:,bc_colnames])
 @info size(bc_webs')
 
 M = fit(PCA, bc_webs')
-P = transform(M, bc_webs')
+P = MultivariateStates.transform(M, bc_webs')
 
 bcdata.pc1 = (P[1,:].-mean(P[1,:]))./std(P[1,:])
 bcdata.pc2 = (P[2,:].-mean(P[2,:]))./std(P[2,:])
