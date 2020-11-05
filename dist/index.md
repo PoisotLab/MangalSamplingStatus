@@ -1,5 +1,5 @@
 ---
-title: Database overview
+title: Mangal database overview
 ---
 
 This page is automatically generated from the [`mangal.io`](http://mangal.io)
