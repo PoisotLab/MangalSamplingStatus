@@ -5,23 +5,16 @@ using Plots.PlotMeasures
 using Statistics
 using MultivariateStats
 
+range(x::Vector{T}) where {T <: Number} = (x .- mean(x)) ./ std(x)
+
 mangal = DataFrame(CSV.File(joinpath("data", "network_data.csv")))
-
-bcdata = dropmissing(mangal, [:bc1]; disallowmissing = true)
-bcdata = bcdata[.!isnan.(bcdata.bc1), :]
-
-bc_colnames = Symbol.("bc" .* string.(1:19))
-bc_webs = convert(Matrix, bcdata[:, bc_colnames])
-
-@info size(bc_webs')
-
-bc_obs = rotl90(bc_webs)
-z = (x) -> (x .- mean(x)) ./ std(x)
-bc_std = mapslices(z, bc_obs; dims = 1)
+bcdata = bcdata[.!(isnan.(bcdata.bc1)), :]
+bc_webs = convert(Matrix{Float64}, bcdata[:, r"bc"])
+bc_std = rotl90(mapslices(range, bc_webs; dims=1))
 
 M = fit(PCA, bc_std)
-
 P = MultivariateStats.transform(M, bc_std)
+scatter(P[1,:], P[2,:], lab="", c=:grey, msw=0.0, ms=2, frame=:origin)
 
 bcdata.pc1 = P[1, :]
 bcdata.pc2 = P[2, :]
@@ -85,7 +78,7 @@ histogram!(
     alpha = 0.5,
     lw = 0.0,
 )
-xaxis!((-5, 5))
+xaxis!((-10, 10))
 yaxis!((0, 0.75))
 savefig(joinpath("figures", "position_on_pc1.png"))
 # savefig(joinpath("figures", "position_on_pc1.pdf"))
@@ -97,7 +90,8 @@ histogram(
     c = "#e69f00",
     lab = "Parasitism",
     dpi = 200,
-    frame = :box,
+	frame = :box,
+	legend = :outertopright,
     margin = 10mm,
     left_margin = 20mm,
     normalize = :probability,
@@ -105,7 +99,7 @@ histogram(
 )
 histogram!(mutu.D, c = "#56b4e9", lab = "Mutualism", normalize=:probability, alpha=0.5, lw=0.0)
 histogram!(pred.D, c = "#009e73", lab = "Predation", normalize=:probability, alpha=0.5, lw=0.0)
-xaxis!((0, 6), "Distance (unitless) to centroid")
-yaxis!((0, 0.5))
+xaxis!((0, 25), "Distance (unitless) to centroid")
+yaxis!((0, 0.6))
 savefig(joinpath("figures", "distance_to_centroid.png"))
 # savefig(joinpath("figures", "distance_to_centroid.pdf"))
