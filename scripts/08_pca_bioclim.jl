@@ -8,7 +8,7 @@ using MultivariateStats
 range(x::Vector{T}) where {T <: Number} = (x .- mean(x)) ./ std(x)
 
 mangal = DataFrame(CSV.File(joinpath("data", "network_data.csv")))
-bcdata = bcdata[.!(isnan.(bcdata.bc1)), :]
+bcdata = mangal[.!(isnan.(mangal.bc1)), :]
 bc_webs = convert(Matrix{Float64}, bcdata[:, r"bc"])
 bc_std = rotl90(mapslices(range, bc_webs; dims=1))
 
