@@ -70,7 +70,7 @@ p1 = heatmap(
     frame = :box,
     top_margin = 1mm,
     size=(500,250),
-    title="Mutualism"
+    title="Parasitism"
 );
 p2 = heatmap(
     log1p(env_mut),
