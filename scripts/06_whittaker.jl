@@ -4,7 +4,7 @@ using Plots
 using Plots.PlotMeasures
 using SimpleSDMLayers
 
-mangal = CSV.read(joinpath("data", "network_data.csv"))
+mangal = DataFrame(CSV.File(joinpath("data", "network_data.csv")))
 
 # Remove everything that has a missing date
 whittaker = dropmissing(mangal, [:bc1, :bc12]; disallowmissing = true)

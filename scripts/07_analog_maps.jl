@@ -12,7 +12,7 @@ cmap_para = [cmap_start, "#e69f00"]
 cmap_mutu = [cmap_start, "#56b4e9"]
 cmap_pred = [cmap_start, "#009e73"]
 
-mangal = CSV.read(joinpath("data", "network_data.csv"))
+mangal = DataFrame(CSV.File(joinpath("data", "network_data.csv")))
 
 # Remove everything that has a missing latitude, longitude, or bc1
 bcdata = dropmissing(mangal, [:latitude, :longitude, :bc1]; disallowmissing = true)
