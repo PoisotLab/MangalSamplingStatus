@@ -140,3 +140,11 @@ p3 = heatmap(
 );
 savefig(p2, joinpath("figures", "geo-distance-mutu.png"))
 savefig(p3, joinpath("figures", "geo-distance-pred.png"))
+
+SimpleSDMLayers.ascii(geo_mut, joinpath("data", "geomut.ascii"))
+SimpleSDMLayers.ascii(geo_par, joinpath("data", "geopar.ascii"))
+SimpleSDMLayers.ascii(geo_prd, joinpath("data", "geoprd.ascii"))
+
+SimpleSDMLayers.ascii(env_mut, joinpath("data", "envmut.ascii"))
+SimpleSDMLayers.ascii(env_par, joinpath("data", "envpar.ascii"))
+SimpleSDMLayers.ascii(env_prd, joinpath("data", "envprd.ascii"))
